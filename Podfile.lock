@@ -1,0 +1,29 @@
+PODS:
+  - CardIO (5.4.1)
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.2.0):
+    - GoogleMaps/Base (= 2.2.0)
+  - Socket.IO-Client-Swift (9.0.1)
+  - SwiftSocket (2.0.1)
+
+DEPENDENCIES:
+  - CardIO
+  - GoogleMaps
+  - GooglePlaces
+  - Socket.IO-Client-Swift
+  - SwiftSocket
+
+SPEC CHECKSUMS:
+  CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
+  Socket.IO-Client-Swift: 60b71a684692a312c4aba3ef52f186e0e254e868
+  SwiftSocket: 2d814afdc97c89217982f86fd036c1874134a63f
+
+PODFILE CHECKSUM: edb2cee50eb643a54c1c3e4900df619237e49afc
+
+COCOAPODS: 1.2.0
