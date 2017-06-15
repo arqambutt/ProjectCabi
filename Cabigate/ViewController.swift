@@ -73,18 +73,10 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     
     
    
-    struct StructDestination{
-        
-        var lat:Double = 0.0
-        var lon:Double = 0.0
-    
-        var DesLocationName:String = ""
-        
-    }
-    var Destination = [StructDestination]()
 
-    var tempLat:Double = 0.0
-    
+
+    var InitailLat:Double = 0.0
+    var DestiLat:Double = 0.0
     
      let Manager = CLLocationManager()
     
@@ -182,23 +174,25 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         FareView.layer.shadowOffset = CGSize.zero
         FareView.layer.shadowRadius = 5
         
+        FareView.layer.cornerRadius = FareView.frame.width / 16
+      
         
         
-        flipViewMain.layer.shadowColor = UIColor.black.cgColor
-        flipViewMain.layer.shadowOpacity = 0.8
+        flipViewMain.layer.shadowColor = UIColor.lightGray.cgColor
+        flipViewMain.layer.shadowOpacity = 0.2
         flipViewMain.layer.shadowOffset = CGSize.zero
         flipViewMain.layer.shadowRadius = 5
      
         CollectionViewOne.frame.origin.y = self.view.frame.size.height
         BelowView.frame.origin.y = self.view.frame.size.height
         
-        BelowView.layer.cornerRadius = BelowView.frame.width / 12
-        BelowView.clipsToBounds = true
-        BelowView.layer.shadowColor = UIColor.black.cgColor
+        BelowView.layer.cornerRadius = BelowView.frame.width / 16
+     
+        BelowView.layer.shadowColor = UIColor.darkGray.cgColor
         BelowView.layer.shadowOpacity = 1
         BelowView.layer.shadowOffset = CGSize.zero
-        BelowView.layer.shadowRadius = 10
-       // BelowView.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        BelowView.layer.shadowRadius = 40
+       
 
         Manager.delegate = self
         Manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -273,7 +267,8 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         swipeDown.direction = .down
         self.view.addGestureRecognizer(swipeDown)
         
-        
+        confermToThisRide.layer.cornerRadius = SideBarProfilePic.frame.size.width / 14
+        confermToThisRide.clipsToBounds = true
         SideBarProfilePic.layer.cornerRadius = SideBarProfilePic.frame.size.width / 2
         SideBarProfilePic.clipsToBounds = true
         
@@ -324,31 +319,30 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         
         if gesture.direction == UISwipeGestureRecognizerDirection.right {
            
-           UIView.animate(withDuration: 0.3, animations: {
+            
+            UIView.animate(withDuration: 0.2, delay: 0.2, options: [  .transitionFlipFromBottom], animations: {
+                
             
             self.LeadingContraints.constant = 320
             self.CollectionViewOne.frame.origin.y = self.view.frame.size.height
             self.BelowView.frame.origin.y = self.view.frame.size.height
                     
-           })
-                
-                
-            
-                
-           
+           }, completion: nil)
+
             
         }
         else if gesture.direction == UISwipeGestureRecognizerDirection.left {
             
             
-//            UIView.animate(withDuration: 5.5, delay: 5.5, options: [.transitionFlipFromLeft], animations: {
-//                
-//                self.LeadingContraints.constant = 0
-//                self.CollectionViewOne.frame.origin.y = self.view.frame.size.height
-//                self.BelowView.frame.origin.y = self.view.frame.size.height
-//               
-//            }, completion: nil)
-
+            
+            UIView.animate(withDuration: 0.2, delay: 0.2, options: [  .transitionFlipFromLeft], animations: {
+                
+                self.LeadingContraints.constant = 0
+                self.CollectionViewOne.frame.origin.y = self.view.frame.size.height
+                self.BelowView.frame.origin.y = self.view.frame.size.height
+               
+            }, completion: nil)
+        
         }
         else if gesture.direction == UISwipeGestureRecognizerDirection.up {
             
@@ -404,17 +398,16 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     
     func FareEstimateFun() {
     
-        if(tempLat != 0.0 ){
+        if(InitailLat != 0.0 ){
             
-            if(Destination[0].lat != 0.0){
+            if(DestiLat != 0.0){
                 
                 
                         UIView.animate(withDuration: 0.2, delay: 0.2, options: [  .transitionFlipFromBottom], animations: {
                 
                             self.CollectionViewOne.frame.origin.y = 40.5
-                            self.BelowView.frame.origin.y = 340
-                            self.exitButton.frame.origin.y = 8
-                            self.FareView.frame.origin.y = 158
+                            self.BelowView.frame.origin.y = 355
+                            self.FareView.frame.origin.y = 168
                             
                         }, completion: nil)
                 
@@ -503,7 +496,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         if (currentCordinate?.longitude != nil){
             
             
-            tempLat = (currentCordinate?.longitude)!
+            InitailLat = (currentCordinate?.longitude)!
            
         let fancy = GMSCameraPosition.camera(withLatitude: currentCordinate!.latitude,
                                                  longitude:currentCordinate!.longitude ,
@@ -739,6 +732,7 @@ extension ViewController :GMSAutocompleteViewControllerDelegate {
             placee = place
             makePolyLine(placess: place)
             
+            
         }
       
         dismiss(animated: true, completion: nil)
@@ -774,7 +768,7 @@ extension ViewController :GMSAutocompleteViewControllerDelegate {
         let destinationCordinate = CLLocationCoordinate2DMake(placee!.coordinate.latitude, placee!.coordinate.longitude)
         
         let destination = "\(destinationCordinate.latitude),\(destinationCordinate.longitude)"
-       
+       DestiLat = destinationCordinate.latitude
         
         let origin = "\(String(describing: InitialBestLocation!.latitude)),\(String(describing:  InitialBestLocation!.longitude))"
 
@@ -808,22 +802,34 @@ extension ViewController :GMSAutocompleteViewControllerDelegate {
                     
                     let polyline = yes.value(forKey: "overview_polyline") as! NSArray
                     
-                    let point = polyline.value(forKey: "points") as! NSArray
-                
-                        let path = GMSPath.init(fromEncodedPath: point[0] as! String)
-                        let polylinetwo = GMSPolyline.init(path: path)
-               
-                        polylinetwo.strokeWidth = 4
-                        polylinetwo.strokeColor = UIColor(displayP3Red: 89/255, green: 193/255, blue: 211/255, alpha: 1)
-                        self.OldPPolyline = polylinetwo
-                        polylinetwo.map = self.CoustomMapView
+                         let point = polyline.value(forKey: "points") as! NSArray
+                            
                       
-                        let position = CLLocationCoordinate2D(latitude: placess.coordinate.latitude, longitude:placess.coordinate.longitude)
-                        let marker = GMSMarker(position: position)
-                        marker.icon = GMSMarker.markerImage(with: .black)
-                        marker.title = placess.name
-                        self.OldPMarker = marker
-                        marker.map = self.CoustomMapView
+                        if(point.count != 0){
+                            
+                        let path = GMSPath.init(fromEncodedPath: point[0] as! String)
+                            
+                            let polylinetwo = GMSPolyline.init(path: path)
+                            
+                            polylinetwo.strokeWidth = 4
+                            polylinetwo.strokeColor = UIColor(displayP3Red: 89/255, green: 193/255, blue: 211/255, alpha: 1)
+                            self.OldPPolyline = polylinetwo
+                            polylinetwo.map = self.CoustomMapView
+                            
+                            let position = CLLocationCoordinate2D(latitude: placess.coordinate.latitude, longitude:placess.coordinate.longitude)
+                            let marker = GMSMarker(position: position)
+                            marker.icon = GMSMarker.markerImage(with: .black)
+                            marker.title = placess.name
+                            self.OldPMarker = marker
+                            marker.map = self.CoustomMapView
+                            
+                        }
+                        else{
+                            
+                            let controller = alert.object.alertForSignin(title: "Alert!", message: "Make sure you have Chosen Right Path!")
+                            
+                            self.present(controller, animated: true, completion: nil)
+                        }
                         
                     }
                 
