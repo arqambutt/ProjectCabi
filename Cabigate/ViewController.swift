@@ -11,8 +11,26 @@ import CoreLocation
 import MapKit
 import GoogleMaps
 import GooglePlaces
+import SDWebImage
 
 class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate   {
+    
+    static var instance  = ViewController()
+    static var object :ViewController {
+        return instance
+    }
+    
+    
+    //Display Main attributes
+    /////////////////////////////////////
+    @IBOutlet weak var destinationCityName: UILabel!
+    @IBOutlet weak var destinationCityCity: UILabel!
+    
+    @IBOutlet weak var myLocationLabel: UILabel!
+    @IBOutlet weak var myLocationCity: UILabel!
+  
+    /////////////////////////////////
+    
     
     @IBOutlet weak var exitButton: UIImageView!
 
@@ -66,14 +84,22 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     
     // below view
     
-    
     @IBOutlet weak var confermToThisRide: UILabel!
     
+    @IBOutlet weak var taxiType: UILabel!
     
+    @IBOutlet weak var EtaTime: UILabel!
     
+    @IBOutlet weak var Luggage: UILabel!
     
+    @IBOutlet weak var MaxPeople: UILabel!
    
+    @IBOutlet weak var Color: UILabel!
 
+
+    
+    
+    
 
     var InitailLat:Double = 0.0
     var DestiLat:Double = 0.0
@@ -88,7 +114,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     
     var destinationLongitude:Double = 0.0
     var DestinationLatitude:Double = 0.0
-    
+    var ChosserCar = "mpv"
     
     var carImgList = ["default", "sedan", "station_wagon", "compact","executive", "mpv" , "minibus" ]
     var carNameList = ["Default","Sedan", "Wagon", "Compact","Executive",  "MPV", "Minibus"]
@@ -112,8 +138,8 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
                 
              print("Cars Has Been Initalized")
                
-          
-                
+        
+                self.coustomCarLoad(carName: self.ChosserCar)
               
             }
             
@@ -123,23 +149,40 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     }
    
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        
-//        print( UserDefaults.standard.value(forKey: "token")!)
-//        print(UserDefaults.standard.value(forKey: "UID")!)
-//        print(UserDefaults.standard.value(forKey: "fname")!)
-        
-  // nearestDriverController.object.SocketRequest()
-   
-     self.InitalizeCars()
-
-     
-        clickMyLocationFunction()
+    func verifySignin(){
         
         
-        Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
+        
+        let temp =  UserDefaults.standard.value(forKey: "token")!
+        
+        
+        if(temp as! String == ""){
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "llll")
+            present(controller, animated: true, completion: nil)
+            
+            
+        }
+        else {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "llll")
+            present(controller, animated: true, completion: nil)
+            
+        }
+        
+        print( UserDefaults.standard.value(forKey: "token")!)
+        print(UserDefaults.standard.value(forKey: "UID")!)
+        print(UserDefaults.standard.value(forKey: "fname")!)
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+        
         PaymentMethod.layer.cornerRadius = PaymentMethod.frame.width/2
         PaymentMethod.clipsToBounds = true
         PaymentMethod.layer.borderColor = UIColor.black.cgColor
@@ -169,31 +212,25 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         
         
         
-        FareView.layer.shadowColor = UIColor.black.cgColor
-        FareView.layer.shadowOpacity = 0.7
-        FareView.layer.shadowOffset = CGSize.zero
-        FareView.layer.shadowRadius = 5
         
-        FareView.layer.cornerRadius = FareView.frame.width / 16
-      
         
         
         flipViewMain.layer.shadowColor = UIColor.lightGray.cgColor
         flipViewMain.layer.shadowOpacity = 0.2
         flipViewMain.layer.shadowOffset = CGSize.zero
         flipViewMain.layer.shadowRadius = 5
-     
+        
         CollectionViewOne.frame.origin.y = self.view.frame.size.height
         BelowView.frame.origin.y = self.view.frame.size.height
         
         BelowView.layer.cornerRadius = BelowView.frame.width / 16
-     
+        
         BelowView.layer.shadowColor = UIColor.darkGray.cgColor
         BelowView.layer.shadowOpacity = 1
         BelowView.layer.shadowOffset = CGSize.zero
         BelowView.layer.shadowRadius = 40
-       
-
+        
+        
         Manager.delegate = self
         Manager.desiredAccuracy = kCLLocationAccuracyBest
         Manager.requestWhenInUseAuthorization()
@@ -217,7 +254,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         let tapThree = UITapGestureRecognizer(target: self, action:#selector(ViewController.FareEstimateFun))
         FareEstimate.addGestureRecognizer(tapThree)
         FareEstimate.isUserInteractionEnabled = true
-     
+        
         
         let tapFive = UITapGestureRecognizer(target: self, action:#selector(ViewController.flipMenu))
         flipMenuButton.addGestureRecognizer(tapFive)
@@ -232,7 +269,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         settings.addGestureRecognizer(set)
         settings.isUserInteractionEnabled = true
         
-
+        
         let clickMyLocationTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.clickMyLocationFunction))
         clickMyLocation.addGestureRecognizer(clickMyLocationTap)
         clickMyLocation.isUserInteractionEnabled = true
@@ -245,7 +282,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         let confermToThisRideTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.confermToThisRideTapFunc))
         confermToThisRide.addGestureRecognizer(confermToThisRideTap)
         confermToThisRide.isUserInteractionEnabled = true
-      
+        
         let paymentsLabelTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.paymentsLabelTapFun))
         paymentsLabel.addGestureRecognizer(paymentsLabelTap)
         paymentsLabel.isUserInteractionEnabled = true
@@ -274,6 +311,58 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         
         SlidebackView.layer.cornerRadius = SlidebackView.frame.size.width / 2
         SlidebackView.clipsToBounds = true
+
+        
+        
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+ 
+        
+        
+        nearestDriverController.object.SocketRequest()
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        
+        let result = formatter.string(from: date)
+       
+        print(result)
+        downloadImg.object.DownloadImg(imgName: "") { (result) in
+            
+            if(result == ""){
+                
+                print("yes a gye ha")
+            }
+            else {
+                print("nahi aii")
+            }
+        }
+        
+        
+       // verifySignin()
+        
+
+downloadImg.object.DownloadImg(imgName: "https://paxapi.cabigate.com/theme/admin/img/vehicles/mapicons/mpv.png") { (result) in
+    
+    if(result == ""){
+        
+        print("a gye ha")
+        
+    }else {
+        print("nahi aye")
+    }
+    
+        }
+     
+        clickMyLocationFunction()
+        
+        
+        Timer.scheduledTimer(timeInterval: 5 , target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
         
        
       
@@ -348,11 +437,11 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
             
             UIView.animate(withDuration: 0.2, delay: 0.2, options: [  .transitionFlipFromBottom], animations: {
                 
-                self.CollectionViewOne.frame.origin.y = 65
+                self.CollectionViewOne.frame.origin.y = 15
                 
                 self.BelowView.frame.origin.y = 298
               
-                self.FareView.frame.origin.y = 187
+                self.FareView.frame.origin.y = 114
                 
             }, completion: nil)
         }
@@ -476,17 +565,38 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         defaultMarker  = marker
         marker.title = name
         InitialBestLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    
         marker.map = CoustomMapView
     }
     
-    
+    func getPlacemarkFromLocation(location: CLLocation){
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler:
+            {(placemarks, error) in
+                if (error != nil) {
+                    
+                    print("reverse geodcode fail: \(String(describing: error?.localizedDescription))"
+                    
+                    
+                    )}
+                let pm = placemarks!
+                if pm.count > 0 {
+               
+                 
+                    
+                    self.destinationCityName.text = pm[0].name
+                    self.destinationCityCity.text = pm[0].country
+                  
+                    
+                }
+        })
+    }
     func clickMyLocationFunction(){
         
          removePreviosMarker()
         
         let currentCordinate = Manager.location?.coordinate
         
-        
+     
         
         if CLLocationManager.locationServicesEnabled() {
             Manager.startUpdatingLocation()
@@ -495,29 +605,49 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         
         if (currentCordinate?.longitude != nil){
             
-            
+            let location = CLLocation(latitude: (currentCordinate?.latitude)!, longitude: (currentCordinate?.longitude)!)
             InitailLat = (currentCordinate?.longitude)!
            
         let fancy = GMSCameraPosition.camera(withLatitude: currentCordinate!.latitude,
                                                  longitude:currentCordinate!.longitude ,
                                                  zoom: 14)
             
+            
+            getPlacemarkFromLocation(location: location)
+            
             self.CoustomMapView.camera = fancy
             self.CoustomMapView.animate(toLocation: CLLocationCoordinate2D(latitude: currentCordinate!.latitude, longitude: currentCordinate!.longitude))
             self.CoustomMapView.delegate = self
             self.CoustomMapView.isMyLocationEnabled = true
             self.CoustomMapView.settings.zoomGestures = true
+            
             let position = CLLocationCoordinate2D(latitude: currentCordinate!.latitude, longitude:currentCordinate!.longitude)
             let marker = GMSMarker(position: position)
             marker.icon = GMSMarker.markerImage(with: UIColor(displayP3Red: 89/255, green: 193/255, blue: 211/255, alpha: 1))
             defaultMarker  = marker
              InitialBestLocation = CLLocationCoordinate2D(latitude: currentCordinate!.latitude, longitude: currentCordinate!.longitude)
+            
+         marker.tracksInfoWindowChanges = true
+            
+   
+            
             marker.map = CoustomMapView
+            
+             CoustomMapView.selectedMarker = marker
         }
     
     }
     
-    
+
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        
+         let infoWindow = Bundle.main.loadNibNamed("CoustomViewForMap", owner: self.view, options: nil)!.first!
+        as! infoPinView
+       infoWindow.estimateTime.text = "\(String(describing: NearestObject?.eta_time))"
+        
+        return infoWindow
+        
+    }
     
     ///////// Rotation
     
@@ -564,94 +694,180 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-    func DefaultCar() {
-        
-        removeOldMarker()
-        OldCarLocations.removeAll()
-
-        for (i,j) in nearestDriverController.ANearestDriver.enumerated(){
-            
-            
-            let position = CLLocationCoordinate2D(latitude: j.lat, longitude: j.lon)
-            
-            let marker = GMSMarker(position: position)
-            
-            marker.position = position
-            marker.isFlat = true
-            marker.tracksViewChanges = true
-            marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-            
-            
-            switch  nearestDriverController.ANearestDriver[i].taxi_type{
-            case "sedan":
-      
-                marker.map = CoustomMapView
-                marker.tracksInfoWindowChanges = true
-                marker.icon = scaleImageToSize(img:UIImage(named: "sedan")! , size: CGSize(width: 40, height: 40))
-                break
-
-            default:
-                break
-            }
-            
-            
-            
-            
-            OldCarLocations.append(marker)
-            OldRotateLocations.append(position)
-            
-            
-        }
-        
-        
-        nearestDriverController.ANearestDriver.removeAll()
-        
-        
-    }
+    var executive = 1000
+    var NearestObject:NDCLASS?
+    var imgg = UIImage()
+    var url:String = ""
+    var carLists = [NDCLASS]()
+    var tempArray = [String]()
     
-    func InitalizeCars() {
+    
+//    func settinGvALUES() {
+//        
+//        
+//         for (_,j) in nearestDriverController.ANearestDriver.enumerated(){
+//        
+//            tempArray.append(j.taxi_type)
+//  
+//        }
+//        
+//        
+//        if tempArray.contains("sedan"){
+//            
+////            let object =  NDCLASS.init(driver_id: j.driver_id, taxi_model: j.taxi_model, driver_name: j.driver_name, phone: j.phone, taxi_color: j.taxi_color, taxi_type: j.taxi_type, eta_time: j.eta_time, MarkerPic: j.MarkerPic)
+////            
+////            
+////            
+////            
+////            carLists.append(object)
+//            
+//        }
+//        
+//    
+//        
+//        
+//    }
+    
+    
+    func coustomCarLoad(carName:String) {
         
-        removeOldMarker()
-        OldCarLocations.removeAll()
- 
+       removeOldMarker()
+       OldCarLocations.removeAll()
+        carLists.removeAll()
+    
+       
+        
         
             for (i,j) in nearestDriverController.ANearestDriver.enumerated(){
             
+             
+          carLists.append(j)
                 
             let position = CLLocationCoordinate2D(latitude: j.lat, longitude: j.lon)
                 
-            
-               
-            let marker = GMSMarker(position: position)
-         
+                let marker = GMSMarker(position: position)
+                
                 marker.position = position
                 
                 marker.isFlat = true
                 marker.tracksViewChanges = true
                 marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+            
               
              
+                
                 switch  nearestDriverController.ANearestDriver[i].taxi_type{
                
-                case "mpv":
-
-                    marker.icon = scaleImageToSize(img:UIImage(named: "mpv")! , size: CGSize(width: 40, height: 40))
+          
                     
-                    marker.map = CoustomMapView
-                    marker.tracksInfoWindowChanges = true
+                    
+                case "\(carName)":
+ 
+     
+                    
+                    taxiType.text = j.taxi_type
+                    EtaTime.text = "\(j.eta_time)"
+                    
+                    
+                   
+                    Luggage.text = "7KG"
+                    MaxPeople.text = "4"
+                    Color.text = j.taxi_color
+                    
+                    
+                    
+                    if (url == ""){
+                        
+                        let imgurl:NSURL? = NSURL(string: "\(j.MarkerPic)")!
+                        
+                        url = "\(j.MarkerPic)"
+                        
+                        
+                        let manager:SDWebImageManager = SDWebImageManager.shared()
+                        manager.imageDownloader?.downloadImage(with: imgurl! as URL, options: [.highPriority , .continueInBackground , .progressiveDownload], progress: nil, completed: { (IMG, DATA, ERR, BOLL) in
+                            
+                            
+                            // setting value
+                            marker.icon = self.scaleImageToSize(img: IMG!, size: CGSize(width: 40.0, height: 40.0))
+                            self.imgg = IMG!
+                            //  marker.tracksInfoWindowChanges = true
+                            marker.map = self.CoustomMapView
+                            
+                             })
+                        
+                        
+                    }else if(url == j.MarkerPic){
+                        
+                      
+                        // setting value
+                        marker.icon = self.scaleImageToSize(img: imgg, size: CGSize(width: 40.0, height: 40.0))                        //  marker.tracksInfoWindowChanges = true
+                        marker.map = self.CoustomMapView
+                        
+                    }else if (url != j.MarkerPic) {
+                        
+                        let imgurl:NSURL? = NSURL(string: "\(j.MarkerPic)")!
+                        
+                        url = "\(j.MarkerPic)"
+                        
+                        
+                        let manager:SDWebImageManager = SDWebImageManager.shared()
+                        manager.imageDownloader?.downloadImage(with: imgurl! as URL, options: [.highPriority , .continueInBackground , .progressiveDownload], progress: nil, completed: { (IMG, DATA, ERR, BOLL) in
+                            
+                            
+                            // setting value
+                            marker.icon = self.scaleImageToSize(img: IMG!, size: CGSize(width: 40.0, height: 40.0))
+                            
+                            
+                            self.imgg = IMG!
+                            //  marker.tracksInfoWindowChanges = true
+                            marker.map = self.CoustomMapView
+                            
+                        })
+                        
+                        
+                        
+                    }else {
+                        
+                        
+                       let imgurl:NSURL? = NSURL(string: "\(j.MarkerPic)")!
+                        
+                        url = "\(j.MarkerPic)"
+                        
+                        
+                        let manager:SDWebImageManager = SDWebImageManager.shared()
+                        manager.imageDownloader?.downloadImage(with: imgurl! as URL, options: [.highPriority , .continueInBackground , .progressiveDownload], progress: nil, completed: { (IMG, DATA, ERR, BOLL) in
+                            
+                            
+                            // setting value
+                            marker.icon = self.scaleImageToSize(img: IMG!, size: CGSize(width: 40.0, height: 40.0))
+                            self.imgg = IMG!
+                            //  marker.tracksInfoWindowChanges = true
+                            marker.map = self.CoustomMapView
+                            
+                        })
+                        
+                    }
+           
+            
+                        
+                        
+                   
+     
+                    OldCarLocations.append(marker)
+                    OldRotateLocations.append(position)
+                    CollectionViewOne.reloadData()
+
                     break
-               
-                default:
+                   default:
                     break
                 }
 
-                OldCarLocations.append(marker)
-                OldRotateLocations.append(position)
+               
                 
                 
                 }
-      
-     
+    
+       
         nearestDriverController.ANearestDriver.removeAll()
    
    
@@ -725,12 +941,18 @@ extension ViewController :GMSAutocompleteViewControllerDelegate {
         
         if ( SetorDestination == "Set"){
             
+           
+            
         coustomLocationFunction(lat: place.coordinate.latitude, lon: place.coordinate.longitude, name: place.name)
 
         }else if ( SetorDestination == "Destination"){
             
             placee = place
             makePolyLine(placess: place)
+            
+            myLocationLabel.text = place.name
+        
+
             
             
         }
@@ -882,7 +1104,7 @@ extension ViewController:UICollectionViewDataSource , UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return carImgList.count
+        return carLists.count
     }
     
     
@@ -892,20 +1114,33 @@ extension ViewController:UICollectionViewDataSource , UICollectionViewDelegate {
       
             let cellTwo = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for:indexPath) as! flipMenuCell
         
+//        var carImgList = ["default", "sedan", "station_wagon", "compact","executive", "mpv" , "minibus" ]
+//        var carNameList = ["Default","Sedan", "Wagon", "Compact","Executive",  "MPV", "Minibus"]
+        
         
       cellTwo.layer.cornerRadius = cellTwo.frame.width / 2
       cellTwo.clipsToBounds = true
-        cellTwo.backgroundView?.backgroundColor = UIColor.blue
+     
+        cellTwo.configrationOfCell(name:carLists[indexPath.row].taxi_type , ImgURL: carLists[indexPath.row].MarkerPic )
         
-         cellTwo.configrationOfCell(name: carNameList[indexPath.item], Img: UIImage(named: "\(carImgList[indexPath.item])")!)
-    
-        cellTwo.BackGroungView.backgroundColor = UIColor.clear
+        
+        
         return cellTwo
         
     }
  
     
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+       
+            ChosserCar = carLists[indexPath.row].taxi_type
+            coustomCarLoad(carName: ChosserCar)
+        
+   
+  
+    }
     
     
 }
@@ -923,7 +1158,7 @@ extension ViewController:UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 13
+        return carImgList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

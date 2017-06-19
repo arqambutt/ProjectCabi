@@ -18,12 +18,10 @@ class userData {
     }
     
     var uId:String = ""
-     var fName:String = ""
+    var fName:String = ""
     var email:String = ""
     var keymatch :String = ""
-   
     var OPT:String = ""
-    
     var token:String = ""
     
     

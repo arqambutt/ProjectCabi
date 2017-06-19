@@ -11,6 +11,7 @@ target 'Cabigate' do
    pod 'Socket.IO-Client-Swift'
    pod 'CardIO'
    pod 'SwiftSocket'
+    pod 'SDWebImage'
 
   # Pods for Cabigate
 

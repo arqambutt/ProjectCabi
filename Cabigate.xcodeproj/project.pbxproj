@@ -12,6 +12,13 @@
 		1416D3831EF12DCE00C364E6 /* VisaCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3821EF12DCE00C364E6 /* VisaCellView.swift */; };
 		1416D3871EF137E300C364E6 /* deleteVisaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3861EF137E300C364E6 /* deleteVisaCard.swift */; };
 		1416D3891EF13F0800C364E6 /* makeDefaultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3881EF13F0800C364E6 /* makeDefaultCard.swift */; };
+		1416D38C1EF3C88300C364E6 /* bookingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D38B1EF3C88300C364E6 /* bookingPage.swift */; };
+		1416D3901EF3E7C200C364E6 /* CoustomViewForMap.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1416D38F1EF3E7C200C364E6 /* CoustomViewForMap.xib */; };
+		1416D3921EF3E98000C364E6 /* infoPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3911EF3E98000C364E6 /* infoPinView.swift */; };
+		1416D3941EF5399600C364E6 /* DownloadImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3931EF5399600C364E6 /* DownloadImg.swift */; };
+		1416D3961EF54C4300C364E6 /* booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3951EF54C4300C364E6 /* booking.swift */; };
+		1416D39A1EF54EA700C364E6 /* FareEstimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D3991EF54EA700C364E6 /* FareEstimate.swift */; };
+		1416D39C1EF54EBE00C364E6 /* BookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1416D39B1EF54EBE00C364E6 /* BookingController.swift */; };
 		14265D1A1EE9EEEA002A2278 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14265D191EE9EEEA002A2278 /* HistoryView.swift */; };
 		14265D1C1EE9F128002A2278 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14265D1B1EE9F128002A2278 /* HistoryCell.swift */; };
 		1466D0C11EEEB6B500640006 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1466D0C01EEEB6B500640006 /* Accelerate.framework */; };
@@ -55,6 +62,8 @@
 		14FA3B201EE472F500F97AD9 /* plungs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FA3B1F1EE472F500F97AD9 /* plungs.swift */; };
 		14FA3B221EE54A3B00F97AD9 /* sideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FA3B211EE54A3B00F97AD9 /* sideBar.swift */; };
 		14FA3B241EE553C100F97AD9 /* sideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FA3B231EE553C100F97AD9 /* sideMenuCell.swift */; };
+		14FBA1021EF7D9FC0080C499 /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FBA1011EF7D9FC0080C499 /* Startup.swift */; };
+		14FBA1041EF7E7C70080C499 /* SocketDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FBA1031EF7E7C70080C499 /* SocketDriver.swift */; };
 		14FC0F9C1EE00E8100994CB9 /* Signin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FC0F9B1EE00E8100994CB9 /* Signin.swift */; };
 		E154CB50F043BB320D5C6292 /* Pods_Cabigate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE507C1CDF5A5278CC4501C1 /* Pods_Cabigate.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +74,13 @@
 		1416D3821EF12DCE00C364E6 /* VisaCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisaCellView.swift; sourceTree = "<group>"; };
 		1416D3861EF137E300C364E6 /* deleteVisaCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = deleteVisaCard.swift; sourceTree = "<group>"; };
 		1416D3881EF13F0800C364E6 /* makeDefaultCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = makeDefaultCard.swift; sourceTree = "<group>"; };
+		1416D38B1EF3C88300C364E6 /* bookingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bookingPage.swift; sourceTree = "<group>"; };
+		1416D38F1EF3E7C200C364E6 /* CoustomViewForMap.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoustomViewForMap.xib; sourceTree = "<group>"; };
+		1416D3911EF3E98000C364E6 /* infoPinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = infoPinView.swift; sourceTree = "<group>"; };
+		1416D3931EF5399600C364E6 /* DownloadImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadImg.swift; sourceTree = "<group>"; };
+		1416D3951EF54C4300C364E6 /* booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = booking.swift; sourceTree = "<group>"; };
+		1416D3991EF54EA700C364E6 /* FareEstimate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FareEstimate.swift; sourceTree = "<group>"; };
+		1416D39B1EF54EBE00C364E6 /* BookingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingController.swift; sourceTree = "<group>"; };
 		14265D191EE9EEEA002A2278 /* HistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		14265D1B1EE9F128002A2278 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		1466D0BD1EEEB39000640006 /* Cabigate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cabigate-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -112,6 +128,8 @@
 		14FA3B1F1EE472F500F97AD9 /* plungs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = plungs.swift; sourceTree = "<group>"; };
 		14FA3B211EE54A3B00F97AD9 /* sideBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideBar.swift; sourceTree = "<group>"; };
 		14FA3B231EE553C100F97AD9 /* sideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuCell.swift; sourceTree = "<group>"; };
+		14FBA1011EF7D9FC0080C499 /* Startup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Startup.swift; sourceTree = "<group>"; };
+		14FBA1031EF7E7C70080C499 /* SocketDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketDriver.swift; sourceTree = "<group>"; };
 		14FC0F9B1EE00E8100994CB9 /* Signin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signin.swift; sourceTree = "<group>"; };
 		407547D8C839A544D6D41DBC /* Pods-Cabigate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cabigate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cabigate/Pods-Cabigate.debug.xcconfig"; sourceTree = "<group>"; };
 		8FAED8E882F0AA9AA97E854A /* Pods-Cabigate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cabigate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cabigate/Pods-Cabigate.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,18 +182,47 @@
 		1416D38A1EF1CF9000C364E6 /* SignInSiginUp */ = {
 			isa = PBXGroup;
 			children = (
-				14EE4BE81EE3D5DB00F50130 /* signUp.swift */,
 				14FC0F9B1EE00E8100994CB9 /* Signin.swift */,
+				14EE4BE81EE3D5DB00F50130 /* signUp.swift */,
 				14F8CCE51EEAF1D30088FB4B /* VerifyePhoneNumber.swift */,
 			);
 			name = SignInSiginUp;
 			sourceTree = "<group>";
 		};
+		1416D38D1EF3C88900C364E6 /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				1416D38B1EF3C88300C364E6 /* bookingPage.swift */,
+			);
+			name = Booking;
+			sourceTree = "<group>";
+		};
+		1416D38E1EF3CA5A00C364E6 /* mainView */ = {
+			isa = PBXGroup;
+			children = (
+				14EC12A91ED978DA00C84263 /* ViewController.swift */,
+				1416D3911EF3E98000C364E6 /* infoPinView.swift */,
+				14FA3B231EE553C100F97AD9 /* sideMenuCell.swift */,
+			);
+			name = mainView;
+			sourceTree = "<group>";
+		};
+		1416D3981EF54E9400C364E6 /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				1416D3991EF54EA700C364E6 /* FareEstimate.swift */,
+				1416D39B1EF54EBE00C364E6 /* BookingController.swift */,
+			);
+			name = Booking;
+			sourceTree = "<group>";
+		};
 		149FA34B1EE28B4C007EE100 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1416D3981EF54E9400C364E6 /* Booking */,
 				1416D3851EF137C500C364E6 /* VisaCardController */,
 				149FA34C1EE28B87007EE100 /* signInController.swift */,
+				1416D3931EF5399600C364E6 /* DownloadImg.swift */,
 				14F5289A1EEFB79700ACD42E /* cardController.swift */,
 				14EE4BEA1EE3D66F00F50130 /* signUpController.swift */,
 				14F8CCE71EEAF23B0088FB4B /* VerificationController.swift */,
@@ -222,6 +269,7 @@
 		14EE4BE01EE3C8E900F50130 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				14FBA1051EF7E7CB0080C499 /* Socket */,
 				14EE4BE11EE3C8FA00F50130 /* userData.swift */,
 				14EE4BE31EE3C99900F50130 /* defaultsettings.swift */,
 				14FA3B1B1EE3F67200F97AD9 /* NearestDriver.swift */,
@@ -230,6 +278,7 @@
 				149F6DB81EE7F8EC0065592F /* userDetail.swift */,
 				14F894971EEA7733008A6EDC /* historyclass.swift */,
 				1416D37E1EF1219F00C364E6 /* cardHistory.swift */,
+				1416D3951EF54C4300C364E6 /* booking.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -251,22 +300,32 @@
 			name = FareEstimation;
 			sourceTree = "<group>";
 		};
+		14FBA1051EF7E7CB0080C499 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				14FBA1031EF7E7C70080C499 /* SocketDriver.swift */,
+			);
+			name = Socket;
+			sourceTree = "<group>";
+		};
 		14FC0F9A1EE00E6600994CB9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1416D38E1EF3CA5A00C364E6 /* mainView */,
+				1416D38D1EF3C88900C364E6 /* Booking */,
 				1416D38A1EF1CF9000C364E6 /* SignInSiginUp */,
 				1416D3841EF12DD400C364E6 /* VisaCardvIEW */,
 				14F5D5D21EEC0B91005EDB70 /* FareEstimation */,
 				14FA3B211EE54A3B00F97AD9 /* sideBar.swift */,
-				14EC12A91ED978DA00C84263 /* ViewController.swift */,
 				149FA34E1EE28C36007EE100 /* sideBarView.swift */,
 				149F6DB61EE7E5B30065592F /* Settings.swift */,
-				14FA3B231EE553C100F97AD9 /* sideMenuCell.swift */,
 				14EC12B01ED978DA00C84263 /* LaunchScreen.storyboard */,
 				14EC12AB1ED978DA00C84263 /* Main.storyboard */,
+				1416D38F1EF3E7C200C364E6 /* CoustomViewForMap.xib */,
 				14265D191EE9EEEA002A2278 /* HistoryView.swift */,
 				14265D1B1EE9F128002A2278 /* HistoryCell.swift */,
 				1466D0BD1EEEB39000640006 /* Cabigate-Bridging-Header.h */,
+				14FBA1011EF7D9FC0080C499 /* Startup.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -369,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1416D3901EF3E7C200C364E6 /* CoustomViewForMap.xib in Resources */,
 				14EC12B21ED978DA00C84263 /* LaunchScreen.storyboard in Resources */,
 				14EC12AF1ED978DA00C84263 /* Assets.xcassets in Resources */,
 				14EC12AD1ED978DA00C84263 /* Main.storyboard in Resources */,
@@ -430,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1416D39C1EF54EBE00C364E6 /* BookingController.swift in Sources */,
 				14EC12AA1ED978DA00C84263 /* ViewController.swift in Sources */,
 				14F5D5D61EEC14E3005EDB70 /* estimateFair.swift in Sources */,
 				149FA34D1EE28B87007EE100 /* signInController.swift in Sources */,
@@ -438,7 +499,9 @@
 				149F6DB71EE7E5B30065592F /* Settings.swift in Sources */,
 				14EE4BEB1EE3D66F00F50130 /* signUpController.swift in Sources */,
 				14F9FB3B1EEE7E4500D6B38D /* paypal.swift in Sources */,
+				1416D3961EF54C4300C364E6 /* booking.swift in Sources */,
 				14F894961EEA7332008A6EDC /* historyLocation.swift in Sources */,
+				1416D3941EF5399600C364E6 /* DownloadImg.swift in Sources */,
 				14F5D5D41EEC0BBC005EDB70 /* driverRating.swift in Sources */,
 				14F894981EEA7733008A6EDC /* historyclass.swift in Sources */,
 				14F8CCE81EEAF23B0088FB4B /* VerificationController.swift in Sources */,
@@ -448,8 +511,11 @@
 				14EC12A81ED978DA00C84263 /* AppDelegate.swift in Sources */,
 				14FA3B201EE472F500F97AD9 /* plungs.swift in Sources */,
 				149FA34F1EE28C36007EE100 /* sideBarView.swift in Sources */,
+				1416D38C1EF3C88300C364E6 /* bookingPage.swift in Sources */,
 				14EE4BE71EE3CF8600F50130 /* Alert.swift in Sources */,
+				14FBA1041EF7E7C70080C499 /* SocketDriver.swift in Sources */,
 				14F5289D1EEFD39B00ACD42E /* manageCard.swift in Sources */,
+				1416D39A1EF54EA700C364E6 /* FareEstimate.swift in Sources */,
 				1416D3891EF13F0800C364E6 /* makeDefaultCard.swift in Sources */,
 				1416D3831EF12DCE00C364E6 /* VisaCellView.swift in Sources */,
 				14F5289B1EEFB79700ACD42E /* cardController.swift in Sources */,
@@ -462,7 +528,9 @@
 				14FA3B1C1EE3F67200F97AD9 /* NearestDriver.swift in Sources */,
 				14FA3B241EE553C100F97AD9 /* sideMenuCell.swift in Sources */,
 				14265D1A1EE9EEEA002A2278 /* HistoryView.swift in Sources */,
+				14FBA1021EF7D9FC0080C499 /* Startup.swift in Sources */,
 				1416D3871EF137E300C364E6 /* deleteVisaCard.swift in Sources */,
+				1416D3921EF3E98000C364E6 /* infoPinView.swift in Sources */,
 				14FA3B1E1EE3F93A00F97AD9 /* nearestDriverController.swift in Sources */,
 				14FC0F9C1EE00E8100994CB9 /* Signin.swift in Sources */,
 			);

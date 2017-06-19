@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
 		<key>MICountryPicker.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -35,6 +40,11 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>Socket.IO-Client-Swift.xcscheme</key>
 		<dict>
@@ -59,6 +69,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0AB3828D7A7D531A17ED161454D113AE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0DB194629F1368FB26338A13747F37BF</key>
 		<dict>
 			<key>primary</key>
@@ -70,6 +85,11 @@
 			<true/>
 		</dict>
 		<key>2D5A03FF4DB2911A1721DE94FE9150E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2F4F3A9DC941E31B028FD4436944D08D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -99,7 +119,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5B2805E2F231A562CAEA12A602516042</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5B9A544927D9ED12AD3F9525E2E37D39</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>607EFBE96D98F877EB15CCF31CB5BFF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -139,12 +169,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A5DBEDF927AB16853AB2A774F19F430B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AB9264AAF4BFE0DBFEC23B4FC0AA7FE8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B18BBBE801BE78E1FF732729FAF3B876</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C0E5A851C6CE6EF8E4966C457FDE009D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4944FEC314D1A66588651D006273ADE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C4C346D5E6F4170AB9C1DDE1A7655A4B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

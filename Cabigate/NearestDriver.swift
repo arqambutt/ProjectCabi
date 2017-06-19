@@ -22,7 +22,8 @@ class NDCLASS {
     var lat:Double = 0.0
     var lon:Double = 0.0
     var distance:Double = 0.0
-    var eta_time:Double = 0
+    var eta_time:Int = 0
+    var MarkerPic:String = ""
     
     
     init(data:NSDictionary) {
@@ -49,7 +50,30 @@ class NDCLASS {
           lon = Double(lo as! String)!
         let distancee = data["distance"] as! NSObject
         distance =  distancee as! Double
+        
+        let MarkerPicc = data["icon"] as! NSObject
+        MarkerPic =  MarkerPicc as! String
      
+        let eta = data["eta_time"] as! NSObject
+        eta_time =  eta as! Int
+    
+     
+    }
+    
+    
+    
+    init(driver_id:String, taxi_model:String, driver_name:String , phone:String,taxi_color:String ,taxi_type:String, eta_time:Int,MarkerPic:String   ) {
+        
+
+        self.driver_id = driver_id
+        self.taxi_model = taxi_model
+        self.driver_name = driver_name
+        self.phone = phone
+        self.taxi_color = taxi_color
+        self.taxi_type = taxi_type
+        self.eta_time = eta_time
+        self.MarkerPic = MarkerPic
+        
     }
     
     

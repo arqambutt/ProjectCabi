@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class flipMenuCell: UICollectionViewCell {
     
@@ -15,6 +16,9 @@ class flipMenuCell: UICollectionViewCell {
     @IBOutlet weak var Image: UIImageView!
     
     @IBOutlet weak var taxiName: UILabel!
+    
+    var url = ""
+    var imgg = UIImage()
     
     override var isSelected: Bool{
         
@@ -45,16 +49,68 @@ class flipMenuCell: UICollectionViewCell {
     
 
     
-    func configrationOfCell(name:String , Img:UIImage){
+    func configrationOfCell(name:String , ImgURL:String){
         
-    
-        Image.image = Img
+
+        Image.sd_setImage(with: URL(string: ImgURL), placeholderImage:UIImage(named: "back"), options: [.continueInBackground, .progressiveDownload])
+       // Image.image = Img
         taxiName.text = name
-        
-        
-        
+       
     }
-    
+   
+//        
+//        if (url == ""){
+//            
+//            
+//             let imgurl:NSURL? = NSURL(string: "\(ImgURL)")!
+//            
+//            url = ImgURL
+//            
+//            
+//            let manager:SDWebImageManager = SDWebImageManager.shared()
+//            manager.imageDownloader?.downloadImage(with: imgurl! as URL, options: [.highPriority , .continueInBackground , .progressiveDownload], progress: nil, completed: { (IMG, DATA, ERR, BOLL) in
+//                
+//                
+//               self.Image.image = IMG
+//                self.imgg = IMG!
+//                
+//            })
+//            
+//            
+//        }else if(url == ImgURL){
+//            
+//            
+//          self.Image.image = imgg
+//            
+//            
+//            
+//        }else if (url != ImgURL) {
+//            
+//            let imgurl:NSURL? = NSURL(string: "\(ImgURL)")!
+//            
+//            url = ImgURL
+//            
+//            
+//            let manager:SDWebImageManager = SDWebImageManager.shared()
+//            manager.imageDownloader?.downloadImage(with: imgurl! as URL, options: [.highPriority , .continueInBackground , .progressiveDownload], progress: nil, completed: { (IMG, DATA, ERR, BOLL) in
+//                
+//                
+//                self.Image.image = IMG
+//                self.imgg = IMG!
+//                
+//                
+//                
+//            })
+//            
+//            
+//            
+//        }
+//        
+//
+//        
+//        
+//    }
+//    
     
     
 }

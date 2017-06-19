@@ -9,11 +9,40 @@ import UIKit
 
 class Signin: UIViewController , UITextFieldDelegate {
 
-    
+    static var instance  = Signin()
+    static var object :Signin {
+        return instance
+    }
     
     @IBOutlet weak var emailField: UITextField!
     
     @IBOutlet weak var passField: UITextField!
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+      
+    loginView()
+
+    }
+    
+    func loginView(){
+        
+        
+        if ( UserDefaults.standard.value(forKey: "token")! as! String != "") {
+            
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "Map")
+            present(controller, animated: true, completion: nil)
+        }
+        
+        
+        
+    }
+   
 
     @IBAction func login(_ sender: Any) {
     

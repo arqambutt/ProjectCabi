@@ -65,11 +65,15 @@ class nearestDriverController{
                 let array  = data["list"] as! NSArray
                     
                     DispatchQueue.main.async {
-                    
+ 
                     for i in array  {
+                        
+                    
+                        
                         
                     let responce = NDCLASS.init(data: i as! NSDictionary)
                       
+                    
                         nearestDriverController.ANearestDriver.append(responce)
                     
                        
@@ -121,25 +125,31 @@ class nearestDriverController{
                     
                     socket.on(clientEvent: .connect) {data, ack in
                         
-                        print(data)
-                        print(ack)
+                    
                         
-                        print("socket connected")
-                        print(content)
+                        
+                      
     socket.emit("senddata", ["user_id": "786", "type": "passenger", "username": "Arehman"])
                     }
                     
                     
                     
-                    socket.on("senddata") {data, ack in
-                        
-                        
-                        socket.emit("senddata" , content)
-                        
-                        
-                        
-                    }
+               
                     
+                    
+                    socket.on("locationupdater") {data, ack in
+                        if let cur = data[0] as? NSDictionary {
+                            
+                            print(cur)
+                            
+//                            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
+//                                socket.emit("update", ["amount": cur + 2.50])
+//                            }
+//                            
+//                            ack.with("Got your currentAmount", "dude")
+                        }
+                    }
+
                     socket.connect()
                     
 
