@@ -10,18 +10,33 @@ import Foundation
 
 class socketDriver {
     
-    
-//    bearing = 0;
-//    companyid = 2109;
-//    driverid = 223;
-//    lat = "51.5287505";
-//    lng = "-0.6039652";
-//    speed = "10.75";
-//    username = c25;
+
     
     
-//    var driverid
-//    var lat
-//    var lon
+    var driverid = ""
+    var lat = ""
+    var lon = ""
+    var userName = ""
+    
+    init(object:NSDictionary) {
+
+        
+        let Cs = object["driverid"] as! NSObject
+        self.driverid = String(describing: Cs)
+        
+        let Css = object["username"] as! NSObject
+        self.userName = String(describing: Css)
+        
+        
+        let Csa = object["lat"] as! NSObject
+        self.lat = String(describing: Csa)
+        
+        let Csr = object["lng"] as! NSObject
+        self.lon = String(describing: Csr)
+        
+     
+        
+    }
+    
     
 }

@@ -132,18 +132,7 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
             //makePolyLine()
         }
       
-        nearestDriverController.object.nearestDriver { (results) in
-            
-            if results == true {
-                
-             print("Cars Has Been Initalized")
-               
-        
-                self.coustomCarLoad(carName: self.ChosserCar)
-              
-            }
-            
-        }
+    
         
         
     }
@@ -320,10 +309,21 @@ class ViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
- 
+        nearestDriverController.object.nearestDriver { (results) in
+            
+            if results == true {
+                
+                print("Cars Has Been Initalized")
+                
+                
+                self.coustomCarLoad(carName: self.ChosserCar)
+                
+            }
+            
+        }
         
         
-        nearestDriverController.object.SocketRequest()
+        
         
         let date = Date()
         let formatter = DateFormatter()
@@ -671,28 +671,32 @@ downloadImg.object.DownloadImg(imgName: "https://paxapi.cabigate.com/theme/admin
     }
     
     
-    var OldCarLocations = [GMSMarker]()
+    struct OldMarKer {
+        
+        var driverId = 0
+        var Marker = GMSMarker()
+    }
+    
+    
+    var OldMarkerStruct = [OldMarKer]()
     
     var OldRotateLocations = [CLLocationCoordinate2D]()
  
     
-    func removeOldMarker() {
-        
-        if(OldCarLocations.count != 0){
-            
-        for (i,_) in OldCarLocations.enumerated() {
-       
-            OldCarLocations[i].map = nil
-            
-        }
-        }
-        
-    }
+//    func removeOldMarker() {
+//        
+//        if(OldCarLocations.count != 0){
+//            
+//        for (i,_) in OldCarLocations.enumerated() {
+//       
+//            OldCarLocations[i].map = nil
+//            
+//        }
+//        }
+//        
+//    }
     
-    func RotateMarker(marker:GMSMarker){
-        
-        
-    }
+
     
     var executive = 1000
     var NearestObject:NDCLASS?
@@ -702,47 +706,53 @@ downloadImg.object.DownloadImg(imgName: "https://paxapi.cabigate.com/theme/admin
     var tempArray = [String]()
     
     
-//    func settinGvALUES() {
+
+    
+    
+    func CarLoad(){
+        
+        nearestDriverController.object.SocketRequest { (result) in
+            
+            if(result == ""){
+                
+
+//                
+                print(nearestDriverController.object.object!.driverid )
+                print(nearestDriverController.object.object!.userName )
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    func UpdateNewMarker(){
+        
 //        
-//        
-//         for (_,j) in nearestDriverController.ANearestDriver.enumerated(){
-//        
-//            tempArray.append(j.taxi_type)
-//  
-//        }
-//        
-//        
-//        if tempArray.contains("sedan"){
-//            
-////            let object =  NDCLASS.init(driver_id: j.driver_id, taxi_model: j.taxi_model, driver_name: j.driver_name, phone: j.phone, taxi_color: j.taxi_color, taxi_type: j.taxi_type, eta_time: j.eta_time, MarkerPic: j.MarkerPic)
-////            
-////            
-////            
-////            
-////            carLists.append(object)
-//            
-//        }
-//        
-//    
-//        
-//        
-//    }
+        
+        
+        
+        
+        
+    
+        
+    }
+    
     
     
     func coustomCarLoad(carName:String) {
         
-       removeOldMarker()
-       OldCarLocations.removeAll()
-        carLists.removeAll()
+     
+      
     
-       
+       CarLoad()
         
         
-            for (i,j) in nearestDriverController.ANearestDriver.enumerated(){
+            for (_,j) in nearestDriverController.ANearestDriver.enumerated(){
             
-             
-          carLists.append(j)
-                
+         
             let position = CLLocationCoordinate2D(latitude: j.lat, longitude: j.lon)
                 
                 let marker = GMSMarker(position: position)
@@ -754,17 +764,8 @@ downloadImg.object.DownloadImg(imgName: "https://paxapi.cabigate.com/theme/admin
                 marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
             
               
-             
+
                 
-                switch  nearestDriverController.ANearestDriver[i].taxi_type{
-               
-          
-                    
-                    
-                case "\(carName)":
- 
-     
-                    
                     taxiType.text = j.taxi_type
                     EtaTime.text = "\(j.eta_time)"
                     
@@ -848,29 +849,12 @@ downloadImg.object.DownloadImg(imgName: "https://paxapi.cabigate.com/theme/admin
                         
                     }
            
-            
-                        
-                        
-                   
-     
-                    OldCarLocations.append(marker)
-                    OldRotateLocations.append(position)
-                    CollectionViewOne.reloadData()
+ 
+   //  OldMarkerStruct.append()
+  
 
-                    break
-                   default:
-                    break
                 }
 
-               
-                
-                
-                }
-    
-       
-        nearestDriverController.ANearestDriver.removeAll()
-   
-   
     }
     
     

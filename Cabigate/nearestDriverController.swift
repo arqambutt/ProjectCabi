@@ -12,6 +12,7 @@ import SocketIO
 
 
 typealias FetchSucess = (_ msg:Bool)-> Void
+typealias SocketTriger = (_ msg:String)-> Void
 
 class nearestDriverController{
     
@@ -20,6 +21,8 @@ class nearestDriverController{
     static var object :nearestDriverController {
         return instance
     }
+    
+    var object:socketDriver? = nil
     
     static var ANearestDriver = [NDCLASS]()
     
@@ -98,7 +101,7 @@ class nearestDriverController{
     
     
     
-    func SocketRequest(){
+    func SocketRequest(Socket:@escaping SocketTriger){
         
         let postData = "{"+"\"user_id\""+":"+"\"1234\""+","+"\"type\""+":"+"\"passenger\""+","+""+"\"username\""+":"+"\"AGS\""+"}"
 
@@ -140,14 +143,13 @@ class nearestDriverController{
                     socket.on("locationupdater") {data, ack in
                         if let cur = data[0] as? NSDictionary {
                             
-                            print(cur)
+                            self.object =  socketDriver.init(object:cur  as NSDictionary)
                             
-//                            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-//                                socket.emit("update", ["amount": cur + 2.50])
-//                            }
-//                            
-//                            ack.with("Got your currentAmount", "dude")
+                            return Socket("")
+                           
+
                         }
+                        return Socket("No")
                     }
 
                     socket.connect()
