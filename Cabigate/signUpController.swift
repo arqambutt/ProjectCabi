@@ -18,7 +18,6 @@ class signUpController {
         return instance
     }
     
-    //"data={"+"\"fname\""+":"+"\"test\""+","+"\"lname\""+":"+"\"test\""+","+"\"phone\""+":"+"\"+910123409089\""+","+"\"password\""+":"+"\"123456\""+", "+"\"email\""+":"+"\"passenger@cabigate.com\""+"}"
     
     
     func signUP(name:String , email:String , pNumber:String , pass:String , Results:@escaping metadataSignUp){
@@ -64,62 +63,64 @@ class signUpController {
                     let session = URLSession.shared
                     let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                         if (error != nil) {
-                            print(error!)
+                           
                         } else {
                             
                             do {
-                                
-                                print(data!)
+                               
                                 
                                 let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                                 
-                                let chapi = temp as NSDictionary
-                               
-                                let errorcode = temp["status"]  as! NSObject
-                               
-                                 DispatchQueue.main.async {
-                                    
-                                if(String(describing: errorcode) == "0"){
-                                    
-                                    Results("\(String(describing: chapi.value(forKey: "error_msg")!))")
-                                    
-                                }else{
-                                    
-                                        
-                                        let dataTwo = temp["response"] as! NSDictionary
-                                        
-                                        if let h = dataTwo.value(forKey: "companyid") {
-                                            
-                                            defaultSettings.object.companyId = h as! String
-                                        }
-                                        if let h = dataTwo.value(forKey: "fname") {
-                                            
-                                            userData.object.fName = h as! String
-                                        }
-                                        if let h = dataTwo.value(forKey: "userid") {
-                                            
-                                            userData.object.uId  = h as! String
-                                            
-                                            print(h)
-                                        }
-                                        if let h = dataTwo.value(forKey: "token") {
-                                            
-                                            userData.object.token = h as! String
-                                        }
-                                        if let h = dataTwo.value(forKey: "OPT") {
-                                            
-                                            userData.object.OPT = h as! String
-                                        }
-                                        if let h = dataTwo.value(forKey: "keymatch") {
-                                            
-                                            userData.object.keymatch = h as! String
-                                        }
+                                let data = temp as NSDictionary
                                 
-                                    
-                                    UserDefaults.standard.set("\(userData.object.token)", forKey: "token")
-                                      UserDefaults.standard.set("\(userData.object.fName)", forKey: "fname")
-                                    UserDefaults.standard.set("\(userData.object.uId)", forKey: "UID")
+                                let cheak = data.value(forKey: "status")!
+                                
+                                let cheakNow = String(describing: cheak)
+
+                                
+                                DispatchQueue.main.async {
+                                  
+                                    if (cheakNow == "0"){
                                         
+                                        Results("Unable to verify your mobile number")
+                                        
+                                    }else {
+                                    
+                                      
+                                        let dataTwo = temp["response"] as! Dictionary<String,String>
+                                        
+                                        
+                                        print(dataTwo)
+                                        
+                                        
+                                        if let h = dataTwo["userid"] {
+                                            
+                                            userData.object.uId = h
+                                            
+                                        }
+                                        if let h = dataTwo["token"] {
+                                            
+                                            userData.object.token = h
+                                        }
+                                       
+                                        if let h = dataTwo["fname"]{
+                                            
+                                            userData.object.fName = h
+                                        }
+                                        if let h = dataTwo["OPT"]{
+                                            
+                                            userData.object.OPT = h
+                                        }
+                                        if let h = dataTwo["keymatch"] {
+                                            
+                                            userData.object.keymatch = h
+                                        }
+                                        
+                                        UserDefaults.standard.set("\(userData.object.token)", forKey: "token")
+                                        UserDefaults.standard.set("\(userData.object.fName)", forKey: "fname")
+                                        UserDefaults.standard.set("\(userData.object.uId)", forKey: "UID")
+                                    
+
                                          return Results("")
                                     }
    

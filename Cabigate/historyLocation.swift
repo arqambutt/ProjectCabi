@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias ImportorNot = (_ msg:String)-> Void
+typealias ImportorNot = (_ msg:Bool)-> Void
 
 class ImportHistory {
     
@@ -18,13 +18,20 @@ class ImportHistory {
         return instance
     }
     
+    deinit {
+        
+    
+    }
+  
     
      static var historyArray = [historyclass]()
+   
     
     func FetchHistory(results:@escaping ImportorNot){
-        
-        
-        DispatchQueue.global(qos: .background).async {
+       
+        ImportHistory.historyArray.removeAll()
+      
+      
             
               DispatchQueue.global(qos: .background).async {
             let headers = [
@@ -45,12 +52,11 @@ class ImportHistory {
             request.allHTTPHeaderFields = headers
             request.httpBody = data
             
-            // do stuff 42 seconds later
-            
+          
             let session = URLSession.shared
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
-                    print(error!)
+                  
                 } else {
                     
                       DispatchQueue.main.async {
@@ -66,7 +72,7 @@ class ImportHistory {
                         
                         if (cheakNow == "0"){
                             
-                            return results("Not an valid Email and Password")
+                            return results(false)
                         }else {
                             
                             
@@ -75,15 +81,15 @@ class ImportHistory {
                             let array  = data["list"] as! NSArray
                             
                             DispatchQueue.main.async {
-                           
+                          
                                 for i in array  {
-                                    
-                                    let responce = historyclass.init(data: i as! NSDictionary)
-                                    ImportHistory.historyArray.append(responce)
-                                    
-                                }
+                               
                                 
-                               return results("")
+                                  ImportHistory.historyArray.append(historyclass.init(data: i as! NSDictionary))
+
+                                }
+                         
+                               return results(true)
                                 
                             }
                             
@@ -101,7 +107,6 @@ class ImportHistory {
             
         }
        
-    }
     }
     
 }

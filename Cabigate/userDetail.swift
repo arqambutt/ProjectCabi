@@ -20,11 +20,22 @@ class userDetail {
     
     var email = ""
     var fname = ""
+    var lName = ""
     var phone = ""
     var userid = ""
+    var profilePicUrl = ""
+    var picLocationName = ""
+    var orignalImg = UIImage()
+    var cheak:Bool = false
+    var home_address = ""
+    var home_lat = ""
+    var home_lng = ""
+    var work_address = ""
+    var work_lat = ""
+    var work_lng = ""
+        
     
-    
-    
+ 
     
 }
 

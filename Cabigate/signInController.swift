@@ -48,13 +48,7 @@ class signinController {
                     "cache-control": "no-cache",
                     "postman-token": "4cdcbe06-99c8-62b4-e254-d86d42679e7b"
                 ]
-                
-                
-                //        let companiiD = 2100
-                //        let email = "ghunny_shari@yahoo.com"
-                //        let password = "123456789"
-                //        let method = "normal"
-                
+             
                 let postData = "data={"+"\"companyId\""+":"+"\"\(companiId)\""+","+"\"email\""+":"+"\"\(email)\""+","+"\"password\""+":"+"\"\(password)\""+","+"\"auth\""+":"+"\"\(method)\""+"}"
                 
                 let data = postData.data(using: .utf8)
@@ -78,8 +72,10 @@ class signinController {
                         
                     } else {
                         
+                       
                         do {
                             
+                    
                             let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                             
                             let data = temp as NSDictionary
@@ -87,8 +83,8 @@ class signinController {
                             let cheak = data.value(forKey: "status")!
                             
                             let cheakNow = String(describing: cheak)
+                          
                              DispatchQueue.main.async {
-                            
                             if (cheakNow == "0"){
                                 
                               return results("\(String(describing: data.value(forKey: "error_msg")!))")
@@ -121,12 +117,15 @@ class signinController {
                                 UserDefaults.standard.set("\(userData.object.fName)", forKey: "fname")
                                 UserDefaults.standard.set("\(userData.object.uId)", forKey: "UID")
                                 
+                                
                                       return results("")
                                 }
                                 
                             }
-                        }catch {
+                        }
+                        catch {
                             print(error)
+                        
                         }
                     }
                     

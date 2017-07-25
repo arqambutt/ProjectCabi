@@ -21,10 +21,10 @@ class Addcard{
     }
 
     
-    func performSavingCard( cardNumber:String , cvv:String , expiryMonth:String , expiryYear:String, Results:@escaping VerifyOrNot){
+    func performSavingCard( postCode:String ,cardNumber:String , cvv:String , expiryMonth:String , expiryYear:String, Results:@escaping VerifyOrNot){
         
         
-        let postData = "data={"+"\"userid\""+":"+"\"1\""+","+"\"exp_month\""+":"+"\"\(expiryMonth)\""+","+"\"exp_year\""+":"+"\"\(expiryYear)\""+", "+"\"number\""+":"+"\"\(cardNumber)\","+"\"cvc\""+":"+"\"\(cvv)\""+","+"\"token\""+":"+"\"123456\""+"}"
+        let postData = "data={"+"\"userid\""+":"+"\"1\""+","+"\"exp_month\""+":"+"\"\(expiryMonth)\""+","+"\"exp_year\""+":"+"\"\(expiryYear)\""+", "+"\"number\""+":"+"\"\(cardNumber)\","+"\"cvc\""+":"+"\"\(cvv)\""+","+"\"token\""+":"+"\"123456\""+","+"\"postcode\""+":"+"\"\(postCode)\""+"}"
         
        
         
@@ -79,7 +79,7 @@ class Addcard{
                                 
                                 if let h = dataTwo.value(forKey: "msg") {
     
-                                    print(h)
+                                
                                     
                                 return  Results("")
                                     

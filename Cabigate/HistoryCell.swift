@@ -7,131 +7,66 @@
 //
 
 import UIKit
-import GoogleMaps
+import SDWebImage
 
 
 class HistoryCell: UICollectionViewCell {
  
     
     
-    @IBOutlet weak var a: GMSMapView!
-    
+   
+    @IBOutlet weak var mapImg: UIImageView!
     @IBOutlet weak var imgback: UIView!
     @IBOutlet weak var Time: UILabel!
-   
+    @IBOutlet weak var rating: UILabel!
+    @IBOutlet weak var smallView: UIView!
     @IBOutlet weak var imgFront: UIImageView!
+    @IBOutlet weak var DriverName: UILabel!
+    @IBOutlet weak var CarName: UILabel!
+    @IBOutlet weak var carModel: UILabel!
+    @IBOutlet weak var fare: UILabel!
     
-    @IBOutlet weak var Pounds: UILabel!
-    
+   
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
-        imgback.layer.cornerRadius = imgback.frame.width / 2
-        imgback.clipsToBounds = true
-        imgback.backgroundColor = UIColor.white
-        
-        imgFront.layer.cornerRadius = imgFront.frame.width / 2
-        imgFront.clipsToBounds = true
-        imgFront.image = UIImage(named: "driver")
+          viewHelper.instance.view_circle(views: imgFront)
+          viewHelper.instance.view_circle(views: imgback)
+          viewHelper.instance.view_circle(views: smallView)
+       
     }
     
-    
+   
     
     func configurationofCell(object:historyclass){
     
-        
-        a.clear()
-        let path = GMSMutablePath()
-        path.add(CLLocationCoordinate2D(latitude: Double(object.pickup_lat!)!, longitude: Double(object.pickup_lng!)!))
-        path.add(CLLocationCoordinate2D(latitude: Double(object.drop_lat!)!, longitude: Double(object.drop_lng!)!))
-    
-        
-        let rectangle = GMSPolyline(path: path)
-        rectangle.strokeColor = .gray
-        rectangle.strokeWidth = 4
-        rectangle.geodesic = true
-        rectangle.map = a
-        
-        
-        let pick = CLLocationCoordinate2D(latitude: Double(object.pickup_lat!)!, longitude:  Double(object.pickup_lng!)!)
-        let picmarker = GMSMarker(position: pick)
-        picmarker.icon = scaleImageToSize(img: UIImage(named: "green")! , size: CGSize(width: 20, height: 20
-        ))
-        picmarker.title = "\(object.pickup_location!)"
-        picmarker.map = a
-        
-        let drop = CLLocationCoordinate2D(latitude: Double(object.drop_lat!)!, longitude:  Double(object.drop_lng!)!)
-        let dropmarker = GMSMarker(position: drop)
-          dropmarker.icon = scaleImageToSize(img: UIImage(named: "red")! , size: CGSize(width: 20, height: 20))
-         
-        dropmarker.title = "\(object.drop_location!)"
-        dropmarker.map = a
-        
 
-        let bounds = GMSCoordinateBounds(path: path)
-     
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 80)
-        a.animate(with: update)
         
-     
         
-        Pounds.text = object.total_fare
-      
         
-        if(object.pickup_datetime != nil){
-            
-            let date = convertDateFormatter(date: object.pickup_datetime!)
-            
-            Time.text = date
-            
-        }
-     
+        let M1 = "\(object.pickup_lat!),\(object.pickup_lng!)"
+        let M2 = "\(object.drop_lat!),\(object.drop_lng!)"
+        let staticMapUrl: String = "https://maps.googleapis.com/maps/api/staticmap?&zoom=12&size=400x400&scale=2&markers=size:large|color:red|label:S|\(M1)&markers=size:large|color:red|label:D|\(M2)&path=weight:3|color:red|enc:polyline_data&size=400x400&style=feature:road&path=color:blue|weight:5|\(M1)|\(M2)&key=AIzaSyDgf0Gt6LSKWCDGkZCMe-50Xi3eK0tHtro"
         
-    
-    
-    
+        let url = URL(string: staticMapUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+            mapImg.sd_setImage(with: url, placeholderImage: nil, options: [.continueInBackground, .progressiveDownload])
+        
+        
+        
+        
+        
+        fare.text = "\(object.total_fare!)"
+        Time.text = "\(object.pickup_datetime!)"
+        DriverName.text = "\(object.Username!)"
+        CarName.text = "\(object.taxi_model!)"
+        rating.text = "\(object.driver_rating!)"
+        carModel.text = "\(object.plate_number!)"
+        
+        imgFront.sd_setImage(with: URL(string:object.driver_image! ), placeholderImage: nil, options: [.continueInBackground, .progressiveDownload])
     }
     
-    
-    func convertDateFormatter(date: String) -> String
-    {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"//this your string date format
-       
-    
-        var y :NSDate?
-        if let date = dateFormatter.date(from: date){
-            
-            y = date as NSDate
-           
-        }
-        
-         //let Sdate = dateFormatter.string(from: y as Date)
-            
-        
-        
-        
-    
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-        dateFormatter.locale = Locale.init(identifier: "en_US_POSIX")
-        
-        var finalString:String = ""
-        
-        if let datee = dateFormatter.string(for: y){
-            
-            finalString = datee
-            
-        }
-            
 
-        return finalString
-        
-    
-    }
-    
   
     func scaleImageToSize(img: UIImage, size: CGSize) -> UIImage {
         
@@ -146,6 +81,5 @@ class HistoryCell: UICollectionViewCell {
         
     }
     
-    
-    
+
 }

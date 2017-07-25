@@ -13,9 +13,7 @@ class signUp: UIViewController, UITextFieldDelegate  {
 
     
     
-    
-    @IBOutlet weak var SV: UIScrollView!
-
+   
    
     @IBOutlet weak var Uname: UITextField!
     
@@ -58,9 +56,9 @@ class signUp: UIViewController, UITextFieldDelegate  {
         super.viewDidLoad()
         
     UPhNo.delegate = self
-       uPass.delegate = self
-        uEmail.delegate = self
-        Uname.delegate = self
+    uPass.delegate = self
+    uEmail.delegate = self
+    Uname.delegate = self
         
         
      
@@ -85,14 +83,7 @@ class signUp: UIViewController, UITextFieldDelegate  {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        if(textField == UPhNo){
-            
-               SV.setContentOffset(CGPoint(x: 0, y: 80), animated: true)
-            
-        }else if(textField == uPass){
-            
-            SV.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
-        }
+       
     }
     
  
@@ -102,6 +93,8 @@ class signUp: UIViewController, UITextFieldDelegate  {
         
         CountrtCodeArray.removeAll()
     
+        
+        DispatchQueue.global(qos: .background).async {
         let request = NSMutableURLRequest(url: NSURL(string: "http://country.io/phone.json")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
@@ -109,31 +102,40 @@ class signUp: UIViewController, UITextFieldDelegate  {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
-            
-            
-            do {
-                
-                let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
+            if(error != nil){
                 
                 
-                print(temp as NSDictionary)
                 
-                for i in temp {
-                 
-                self.CountrtCodeArray.append(countryCode.init(flag: i.key, Code: String(describing: i.value)))
+            }else {
+                
+            do{
+                     DispatchQueue.main.async {
+                do {
+                  
+                    print(data!)
+                    
+                    let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
+                    
+                    
+                  
+                    
+                    for i in temp {
+                        
+                        self.CountrtCodeArray.append(countryCode.init(flag: i.key as! String, Code: String(describing: i.value)))
+                    }
+                    
+                }catch {
+                    print(error)
                 }
-                
-                
-                
-                
-            }catch {
-                print(error)
+                }
             }
-        
-    
+            }
+
         })
     
         dataTask.resume()
+            
+        }
     }
     
  
@@ -200,7 +202,7 @@ class signUp: UIViewController, UITextFieldDelegate  {
                 
             }else {
                 
-      let u = alert.object.alertForSignin(title: "Verification Error", message: results)
+      let u = alert.object.alertForSignin(title: "SignUp Error", message: results)
                 self.present(u, animated: true, completion: nil)
             }
         }

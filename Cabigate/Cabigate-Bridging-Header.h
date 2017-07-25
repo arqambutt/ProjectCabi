@@ -5,4 +5,5 @@
 
 #import "CardIO.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "PayPalMobile.h"
 

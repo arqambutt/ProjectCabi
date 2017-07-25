@@ -26,36 +26,95 @@ class NDCLASS {
     var MarkerPic:String = ""
     
     
-    init(data:NSDictionary) {
+    init(data:Dictionary<String,String>) {
         
-        let Cs = data["company_serial"] as! NSObject
+        if let Cs = data["company_serial"]{
+          
         company_serial = String(describing: Cs)
-        let Di = data["driver_id"] as! NSObject
-        driver_id = String(describing: Di)
-        let Tm = data["taxi_model"] as! NSObject
-        taxi_model = String(describing: Tm)
-        let DN = data["driver_name"] as! NSObject
-        driver_name = String(describing: DN)
-        let p = data["phone"] as! NSObject
-        phone = String(describing: p)
-        let CS = data["Callsign"] as! NSObject
-        Callsign = String(describing: CS)
-        let Tc = data["taxi_color"] as! NSObject
-        taxi_color = String(describing: Tc)
-        let TT = data["taxi_type"] as! NSObject
-        taxi_type = String(describing: TT)
-        let l = data["lat"] as! NSObject
-         lat = Double(l as! String)!
-        let lo = data["lon"] as! NSObject
-          lon = Double(lo as! String)!
-        let distancee = data["distance"] as! NSObject
-        distance =  distancee as! Double
+        }
+   
         
-        let MarkerPicc = data["icon"] as! NSObject
-        MarkerPic =  MarkerPicc as! String
+        
+        
+        if let Di = data["driver_id"] {
+         
+             driver_id = String(describing: Di)
+        }
      
-        let eta = data["eta_time"] as! NSObject
-        eta_time =  eta as! Int
+        
+        
+        
+        if let Tm = data["taxi_model"] {
+            
+           taxi_model = String(describing: Tm)
+        }
+      
+        
+        
+        if let DN = data["driver_name"]{
+            
+             driver_name = String(describing: DN)
+        }
+       
+        
+   
+        
+        if let p = data["phone"]{
+              phone = String(describing: p)
+            
+        }
+      
+        
+        
+        if let CS = data["Callsign"] {
+           
+             Callsign = String(describing: CS)
+        }
+       
+        
+        
+        if let Tc = data["taxi_color"] {
+          
+        taxi_color = String(describing: Tc)
+            
+        }
+  
+        
+        if let TT = data["taxi_type"] {
+          taxi_type = String(describing: TT)
+        }
+        
+        
+        if let l = data["lat"] {
+            
+            lat = Double(l)!
+        }
+        
+        
+        if let lo = data["lon"]{
+            
+               lon = Double(lo)!
+        }
+       
+        
+      
+        if let distancee = data["distance"]{
+            
+            distance =  Double(distancee)!
+        }
+    
+        
+        if let MarkerPicc = data["icon"]{
+            
+              MarkerPic =  MarkerPicc
+        }
+      
+
+        if let eta = data["eta_time"] {
+            
+            
+            eta_time =  Int(eta)!
+        }
     
      
     }
@@ -76,5 +135,8 @@ class NDCLASS {
         
     }
     
+//    deinit {
+//        print("deinit")
+//    }
     
 }

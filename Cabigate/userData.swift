@@ -23,7 +23,8 @@ class userData {
     var keymatch :String = ""
     var OPT:String = ""
     var token:String = ""
-    
+    var cheak:String = ""
+    var digis:String = ""
     
     
 

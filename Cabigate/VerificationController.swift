@@ -26,7 +26,6 @@ class VerifyMyNumber{
         
         let codeTWo = userData.object.OPT + Code
         
-        print(codeTWo)
         let postData = "data={"+"\"userid\""+":"+"\"\(userData.object.uId)\""+","+"\"keymatch\""+":"+"\"\(userData.object.keymatch)\""+","+"\"OPT\""+":"+"\"\(codeTWo)\""+""+","+"\"token\""+":"+"\"\(userData.object.token)\""+"}"
         
         
@@ -61,14 +60,15 @@ class VerifyMyNumber{
                 print(error!)
             } else {
                
-                print(data!)
+           
                 do {
                     
                     let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
                     
+                         print(data!)
+                    
                     let data = temp as NSDictionary
                 
-                    print(data)
                     let cheak = data.value(forKey: "status")!
                     
                     let cheakNow = String(describing: cheak)
@@ -77,7 +77,7 @@ class VerifyMyNumber{
                     
                     if (cheakNow == "0"){
                         
-                       Results("Aoory you have Entered Wrong Verification Number")
+                       Results("You have Entered Wrong Verification Number")
                         
                     }else {
                         

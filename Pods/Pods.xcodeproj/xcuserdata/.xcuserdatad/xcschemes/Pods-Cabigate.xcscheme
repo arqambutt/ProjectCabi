@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B18BBBE801BE78E1FF732729FAF3B876'
+               BlueprintIdentifier = 'F9B41F11F1CF1241496A97C942DFABE3'
                BlueprintName = 'Pods-Cabigate'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods-Cabigate.framework'>

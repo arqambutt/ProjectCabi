@@ -9,50 +9,46 @@
 import UIKit
 import GoogleMaps
 
-
-typealias data = (_ msg:String)-> Void
 class HistoryView: UIViewController {
 
-    @IBOutlet weak var needhelp: UILabel!
-    
-    @IBOutlet weak var backButtonImg: UIImageView!
-    
-    @IBOutlet weak var NeedHelpLabel: UILabel!
-    
+  
    
+    @IBOutlet weak var backButtonImg: UIImageView!
+    @IBOutlet weak var c: UIImageView!
+    @IBOutlet weak var b: UILabel!
+    @IBOutlet weak var a: UILabel!
     @IBOutlet weak var CV: UICollectionView!
-
+    @IBOutlet weak var NoHistory: UIView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //Map
-        needhelp.layer.borderWidth.add(2)
-        needhelp.layer.cornerRadius = needhelp.frame.width / 10
-        needhelp.layer.borderColor = UIColor(displayP3Red: 89/255, green: 193/255, blue: 211/255, alpha: 1).cgColor
+  
+    
+    deinit {
         
         
+    }
+    
+
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        print("Memory warning remove")
+    }
+   
+  
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+     
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(backButtonPress))
         backButtonImg.isUserInteractionEnabled = true
         backButtonImg.addGestureRecognizer(tap)
+      
         
-        ImportHistory.object.FetchHistory { (results) in
-            
-            
-            if(results == "Not an valid Email and Password"){
-                
-                let controller = alert.object.alertForSignin(title: "Alert", message: "unabletofindanything")
-                self.present(controller, animated: true, completion: nil)
-                
-            }else if (results == ""){
- 
-                self.CV.reloadData()
-//                           
-        }
-        
+    }
 
-    }
-    }
+
 
     func backButtonPress(){
         
@@ -61,7 +57,6 @@ class HistoryView: UIViewController {
         self.present(controller, animated: true, completion: nil)
         
     }
-  
 
 }
 
@@ -88,91 +83,20 @@ extension HistoryView :UICollectionViewDelegate , UICollectionViewDataSource {
         return cell
     }
     
+
     
-func makePolyLine(obj:historyclass, result:@escaping data) {
-        
-        DispatchQueue.global(qos: .background).async {
-            
-            var origin:String = ""
-            if (obj.pickup_lng! == "" || obj.pickup_lat! == ""){
-                
-                   origin = "\(0.0),\(0.0)"
-                
-            }else{
-                
-                  origin = "\(Double(obj.pickup_lng!)!),\(Double(obj.pickup_lng!)!)"
-            }
-            
-     
-        
-            print(origin)
-            
-            
-            var destination:String = ""
-            if (obj.pickup_lng! == "" || obj.pickup_lat! == ""){
-                
-                destination = "\(0.0),\(0.0)"
-                
-            }else{
-                
-                destination = "\(Double(obj.pickup_lng!)!),\(Double(obj.pickup_lng!)!)"
-            }
-            
-            
-  
-        
-        let todoEndpoint: String = "https://maps.googleapis.com/maps/api/directions/json?origin=\( origin)&destination=\(destination)&key=AIzaSyB6D54NhJotKJplTKlzE8RZDlImJY1hmtY"
-        
-        guard let url = URL(string: todoEndpoint) else {
-            print("Error: cannot create URL")
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-        
-        // set up the session
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         
-    
-            
-            // make the request
-            let task = session.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
-                // do stuff with response, data & error here
-                
-                
-                do {
-                    
-                    let temp = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:AnyObject]
-                    
-                    DispatchQueue.main.async {
-                        
-                        let yes = temp["routes"] as! NSArray
-                        
-                        let polyline = yes.value(forKey: "overview_polyline") as! NSArray
-                        
-                        let point = polyline.value(forKey: "points") as! NSArray
-                        
-                        let path = GMSPath.init(fromEncodedPath: point[0] as! String)
-                        
-                        let polylinetwo = GMSPolyline.init(path: path)
-                
-                        print(polylinetwo)
-                        return result("")
-                    }
-                    
-                } catch {
-                    print(error)
-                }
-                
-                 return result("notnow")
-                
-            })
-            
-            task.resume()
-        }
+let controller = storyboard?.instantiateViewController(withIdentifier: "detailViewForCell") as! HistoryDetail
+        
+        controller.object = ImportHistory.historyArray[indexPath.item]
+        Send.object.object = ImportHistory.historyArray[indexPath.item]
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        
     }
-    
 
     
     override var preferredStatusBarStyle: UIStatusBarStyle{

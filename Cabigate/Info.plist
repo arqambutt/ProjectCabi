@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>PAKISTAN</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cab Point</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string>public.app-category.business</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -27,12 +29,24 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Photo Library Access Warning</string>
 	<key>NSCameraUsageDescription</key>
-	<string>x</string>
+	<string>Photo Library Access Warning</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Application will Aceess your location </string>
+	<string>Apple required Authantication</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Apple required Authantication</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone Library Access Warning</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Access Warning</string>
+	<key>Privacy - Photo Library Usage Description </key>
+	<string>Photo Library Access Warning</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,6 +55,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

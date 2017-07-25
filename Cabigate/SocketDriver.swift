@@ -21,22 +21,38 @@ class socketDriver {
     init(object:NSDictionary) {
 
         
-        let Cs = object["driverid"] as! NSObject
-        self.driverid = String(describing: Cs)
+        if let Cs = object["driverid"]  {
+          
+        self.driverid = Cs as! String
+        }
+     
         
-        let Css = object["username"] as! NSObject
-        self.userName = String(describing: Css)
+        if let Css = object["username"] {
+            
+             self.userName = Css as! String
+            
+        }
+       
         
         
-        let Csa = object["lat"] as! NSObject
-        self.lat = String(describing: Csa)
+        if let Csa = object["lat"] {
+            
+             self.lat = String(describing: Csa)
+        }
+       
         
-        let Csr = object["lng"] as! NSObject
-        self.lon = String(describing: Csr)
+        if let Csr = object["lng"] {
+            
+            self.lon = String(describing: Csr)
+        }
+   
         
      
         
     }
+    
+  
+ 
     
     
 }

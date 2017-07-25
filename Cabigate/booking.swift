@@ -22,15 +22,19 @@ class booking {
     var currentlocName:String = ""
     var DeslocName :String = ""
     var pax_Count:String = ""
-    var pic_Date:NSData? = nil
-    
-    var text_Modal:String = ""
-    var picUpLat:Double = 0.0
-    var picUpLon:Double = 0.0
+    var pic_Date:String = ""
+    var texi_Modal:String = ""
+    var picUpLat:String = ""
+    var picUpLon:String = ""
     var payment :String = ""
-    var dropUpLat:Double = 0.0
-    var dropUpLon:Double = 0.0
-     var tottleFare:String = ""
+    var dropUpLat:String = ""
+    var dropUpLon:String = ""
+    var fareEstimate:String = ""
+    var max_luggage:String = ""
+    var max_passenger:String = ""
+    var total_duration:String = ""
+    var RideNowBtnPress:Bool = false
+    var paypalPass = false
     
-    
+  
 }

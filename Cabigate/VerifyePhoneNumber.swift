@@ -23,28 +23,54 @@ class VerifyePhoneNumber: UIViewController {
  
     @IBAction func clickVerify(_ sender: Any) {
         
-    VerifyMyNumber.object.PerformVerification(Code: VerificationNumber.text!) { (result) in
-        
-        
-        if(result == ""){
-            
-    
-            
-            let storyboad = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboad.instantiateViewController(withIdentifier: "Map")
-            self.present(controller, animated: true, completion: nil)
-            
-            
-        }else{
-            
-            let jj = alert.object.alertForSignin(title: "VerificationError", message: result)
-            
-        self.present(jj, animated: true, completion: nil)
-        }
-        
-        
-        }
+   verification()
         
     }
+    
+    
+  
+    func verification(){
+        
+  
+        
+        VerifyMyNumber.object.PerformVerification(Code: VerificationNumber.text!) { (result) in
+            
+            
+            if(result == ""){
+                
+                    
+                    let storyboad = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboad.instantiateViewController(withIdentifier: "Map")
+                    self.present(controller, animated: true, completion: nil)
+                    
 
+            }else{
+                
+                let jj = alert.object.alertForSignin(title: "VerificationError", message: result)
+                
+                self.present(jj, animated: true, completion: nil)
+            }
+            
+            
+        }
+    }
+    
+    
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.view.resignFirstResponder()
+        return true
+    }
+    
+    
 }

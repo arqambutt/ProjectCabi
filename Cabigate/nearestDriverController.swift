@@ -7,27 +7,35 @@
 //
 
 import Foundation
-import SwiftSocket
 import SocketIO
 
 
 typealias FetchSucess = (_ msg:Bool)-> Void
 typealias SocketTriger = (_ msg:String)-> Void
 
+
+
+
 class nearestDriverController{
     
+   
+    
+     var socketInstance:SocketIOClient?
     
     static var instance  = nearestDriverController()
     static var object :nearestDriverController {
         return instance
     }
-    
-    var object:socketDriver? = nil
+
+    static var nearestdriver:socketDriver? 
+    static var DriverCsTATUS:DriverDetailInit?
     
     static var ANearestDriver = [NDCLASS]()
     
     
     func nearestDriver(Results:@escaping FetchSucess) {
+        
+        nearestDriverController.ANearestDriver.removeAll()
         
         DispatchQueue.global(qos: .background).async {
         
@@ -47,9 +55,7 @@ class nearestDriverController{
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers
         request.httpBody = data
-        
-            // do stuff 42 seconds later
-        
+     
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
@@ -70,17 +76,14 @@ class nearestDriverController{
                     DispatchQueue.main.async {
  
                     for i in array  {
-                        
+
                     
-                        
-                        
-                    let responce = NDCLASS.init(data: i as! NSDictionary)
-                      
-                    
-                        nearestDriverController.ANearestDriver.append(responce)
-                    
+                        nearestDriverController.ANearestDriver.append(NDCLASS.init(data: i as! Dictionary<String,String>))
+               
                        
                     }
+                        
+                        
                         return Results(true)
                         
                     }
@@ -103,102 +106,68 @@ class nearestDriverController{
     
     func SocketRequest(Socket:@escaping SocketTriger){
         
-        let postData = "{"+"\"user_id\""+":"+"\"1234\""+","+"\"type\""+":"+"\"passenger\""+","+""+"\"username\""+":"+"\"AGS\""+"}"
 
-        
-        print(postData)
-        let temp = postData.data(using: .utf8)
-        
-        print(temp!)
-        let dic:NSDictionary = ["user_id": "786", "type": "passenger", "username": "AGSsdasd"]
-        
-
-        do {
-            
-            
-            if let json = try? JSONSerialization.data(withJSONObject: dic, options: []) {
-                // here `json` is your JSON data, an array containing the String
-                // if you need a JSON string instead of data, then do this:
-                if let content = String(data: json, encoding: String.Encoding.utf8) {
-                    // here `content` is the JSON data decoded as a String
-                    print(content)
+                    socketInstance = SocketIOClient(socketURL: URL(string: "http://cabigate.com:3000")!, config: [.log(true), .forcePolling(true)])
                     
-                    
-                    let socket = SocketIOClient(socketURL: URL(string: "http://cabigate.com:3000")!, config: [.log(true), .forcePolling(true)])
-                    
-                    socket.on(clientEvent: .connect) {data, ack in
+                    socketInstance?.on(clientEvent: .connect) {data, ack in
                         
                     
                         
                         
                       
-    socket.emit("senddata", ["user_id": "786", "type": "passenger", "username": "Arehman"])
+    self.socketInstance?.emit("senddata", ["user_id": "1", "type": "passenger", "username": "Arehman"])
                     }
                     
-                    
-                    
-               
-                    
-                    
-                    socket.on("locationupdater") {data, ack in
-                        if let cur = data[0] as? NSDictionary {
+    
+                    socketInstance?.on("locationupdater") {data, ack in
+                        if let cur = data[0] as? NSDictionary  {
                             
-                            self.object =  socketDriver.init(object:cur  as NSDictionary)
-                            
-                            return Socket("")
+
                            
+                        nearestDriverController.nearestdriver = socketDriver.init(object:cur )
+
+                           
+                           
+                        return Socket("")
+                            
 
                         }
                         return Socket("No")
                     }
 
-                    socket.connect()
                     
+                    
+                    
+                    socketInstance?.on("passenger_notifier") {data, ack in
+                        if let cur = data[0] as?  [String: Any]  {
+                           
+                          
+                       
+                            
+                    if let y = cur["details"] as? [String: String] {
+                                
+                      
+                nearestDriverController.DriverCsTATUS = DriverDetailInit.init(object: y)
 
+                        
+                            }
+                         
+                            
+                            return Socket("Driver")
+                         
+                            
+                        }
+                       return Socket("No")
+                    }
                     
                     
+                    socketInstance?.connect()
                     
-                    
-                    
-                    
-                    
-                }
-            }
-            
-            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-            
-            print(jsonData)
-            // here "jsonData" is the dictionary encoded in JSON data
-            
-            let decoded = try JSONSerialization.jsonObject(with: temp!, options:.allowFragments)
-            // here "decoded" is of type `Any`, decoded from JSON data
-            print(decoded)
-            // you can now cast it with the right type
-            if decoded is [String:String] {
-                // use dictFromJSON
-               
-                
-                
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-       
-        
-    
-    
-    
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
 }
+}
+
+    
+    
+    
+

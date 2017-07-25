@@ -43,5 +43,11 @@ class cardHistoryClass{
 
         
     }
+    
+    
+    deinit {
+        
+        print("deinitialized")
+    }
 
 }

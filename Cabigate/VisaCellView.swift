@@ -31,7 +31,9 @@ class VisaCellView: UITableViewCell {
     defaultImg.isHidden = true
         
     }
-
+    deinit {
+        print("remove")
+    }
     
     func Configuration(object:cardHistoryClass){
         

@@ -18,6 +18,14 @@ class manageCard: UIViewController , UITableViewDelegate , UITableViewDataSource
         
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+
+    self.tableViewSwift.removeFromSuperview()
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
